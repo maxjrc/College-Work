@@ -20,7 +20,7 @@ if q1 == "Y":
                 print("Not a valid input!")
             if q4 == "N":
                 q5 = input("Did they have mother that always use to shout?")
-                if q5 == "Y":
+                if q5 == "Y":   
                     print("The person you are thinking of is Howard!")
                     feedback()
                 else:
