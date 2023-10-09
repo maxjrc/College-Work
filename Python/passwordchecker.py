@@ -1,5 +1,6 @@
 # password checker that tells you your level of password strength
 import requests
+import math
 
 def enter_password():
     password = input("Enter your password: ")
