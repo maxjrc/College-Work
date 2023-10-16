@@ -23,9 +23,11 @@ for x in range(100):
         hangman[index] = guess
         # if array join together to make the word then you win
         if randomword == ''.join(hangman):
-            print("The word was: ", hangman)
+            print("The word was: ", randomword)
             print("You win!")
             break
+    else:
+        print("Wrong!")
        
         print(hangman)
        
