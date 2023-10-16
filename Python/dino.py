@@ -1,6 +1,11 @@
 def start():
     print("Welcome to the Dino Guesser!")
     startt = input("Would you like to begin? Y/N ")
+    q1 = ""
+    q2 = ""
+    startt = ""
+    q3 = ""
+    
     if startt == "Y":
         begintree()
     if startt == "N":
