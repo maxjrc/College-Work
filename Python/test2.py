@@ -31,7 +31,7 @@ def find():
     file.close()
 
 def editbook():
-    file = open("Book1.csv", "r+")
+    file = open("Book1.csv", "w")
     line = file.readline()
     EditInput = input("Please enter the name you wish to edit: ")
     data = line.split(",")
@@ -49,8 +49,6 @@ def editbook():
         data[2] = input("Please enter the new city: ")
     if whatedit == "Phone Number":
         data[3] = input("Please enter the new phone number: ")
-    else:
-        print("Not valid.")
     file.close()
     print("Edited!")
     menu()
