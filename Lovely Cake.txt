@@ -1,10 +1,10 @@
  10
 
-    Title: Lovely Cake
+    Title: New Lovely Cake
     Serves: 10
-    Items Needed:  Water Sugar 100  
-    Amount Needed: ((0, '', '100'), '', '100')         
-    Instructions: Get cake 
+    Items Needed: , Water  
+    Amount Needed: (0, '', '100')         
+    Instructions: You need to just add water! 
             
             
             
