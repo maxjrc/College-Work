@@ -1,72 +1,113 @@
 import sqlite3
+import time 
 import datetime
-conn = sqlite3.connect("diary.db")
 
-curr = conn.cursor()
+# Connect to database
+
+conn = sqlite3.connect('diary.db')
+
+# Create a cursor
+
+c = conn.cursor()
+
+# Menu
 
 def menu():
-    while True:
-        print("=====================================")
-        print("Welcome to the Dear Diary System!")
-        op = input("Please select an option: 1. Add Entry 2. Delete Entry 3. Review Entries 4. Exit ")
-        if op == "1":
-            addentry()
-        elif op == "2":
-            deleteentry()
-        elif op == "3":
-            reviewentries()
-        elif op == "4":
-            print("Goodbye!")
-            break
-        else:
-            print("Not a valid option.")
+    print("Welcome to your diary")
+    print("1. Add new entry")
+    print("2. View previous entries")
+    print("3. Delete entry")
+    print("4. Find entry")
+    print()
+
+    choice = input("Enter your choice: ")
+    print()
+
+    if choice == "1":
+        add_entry()
+    elif choice == "2":
+        view_entries()
+    elif choice == "3":
+        delete_entry()
+    elif choice == "4":
+        find_entry()
+    else:
+        print("Invalid choice, try again")
+        print()
+        menu()
 
 
-def addentry():
-    title = input("Please enter your title: ")
-    content = input("Please enter your content: ")
+
+def add_entry():
+    print("Add new entry")
+    print()
+
+    title = input("Enter title: ")
+    content = input("Enter content: ")
     date = datetime.datetime.now()
-    conn.execute("INSERT INTO diary (title, content, date) VALUES (?, ?, ?)", (title, content, date))
-    conn.commit()
-    print("Added the entry.")
+    c.execute("INSERT INTO diary (title, content, date) VALUES (?, ?, ?)", (title, content, date))
 
-def deleteentry():
-    entry = input("Please enter the title entry you would like to delete: ")
-    conn.execute("SELECT * FROM diary WHERE title = ?", (entry,))
-    rows = curr.fetchall()
-    if len(rows) == 0:
-        print("No Entry found.")
-        return
-    conn.execute("DELETE FROM diary WHERE title = ?", (entry,))
-    conn.commit()
-    print("Deleted the entry.")
 
-def reviewentries():
-    conn.execute("SELECT * FROM diary")
-    rows = curr.fetchall()
-    if len(rows) == 0:
-        print("No entries found.")
-        return
+    conn.commit()
+
+    print("Entry added!")
+    print()
+    menu()
+
+
+def view_entries():
+    print("View previous entries")
+    print()
+
+    c.execute("SELECT * FROM diary")
+    rows = c.fetchall()
+
     for row in rows:
-        print("=====================================")
-        print("Entry: ", row[1])
+        print("Title: ", row[0])
+        print("Content: ", row[1])
         print("Date: ", row[2])
-        print("=====================================")
+        print()
+
+    print()
+    menu()
+
+
+def delete_entry():
+    print("Delete entry")
+    print()
+
+    title = input("Enter title: ")
+    c.execute("SELECT * FROM diary WHERE title=?", (title,))
+    row = c.fetchone()
+    if row == None:
+        print("No entry found to delete")
+        print()
+        menu()
+    
+
+    c.execute("DELETE FROM diary WHERE title=?", (title,))
+
     conn.commit()
 
+    print("Entry deleted!")
+    print()
 
 def find_entry():
-    entry = input("Please enter the title entry you would like to find: ")
-    conn.execute("SELECT * FROM diary WHERE title = ?", (entry,))
-    rows = curr.fetchall()
-    if len(rows) == 0:
-        print("No Entry found.")
-        return
-    for row in rows:
-        print("=====================================")
-        print("Entry: ", row[1])
-        print("Date: ", row[2])
-        print("=====================================")
-    conn.commit()
-menu()
+    print("Find entry")
+    print()
 
+    title = input("Enter title: ")
+    c.execute("SELECT * FROM diary WHERE title=?", (title,))
+    row = c.fetchone()
+    if row == None:
+        print("No entry found")
+        print()
+        menu()
+    else:
+        print("Title: ", row[0])
+        print("Content: ", row[1])
+        print("Date: ", row[2])
+        print()
+
+    print()
+menu()
