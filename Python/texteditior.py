@@ -3,13 +3,18 @@
 from tkinter import *
 import sqlite3
 import os
- 
+import customtkinter
 # create a user database
 conn = sqlite3.connect("users.db")
 curr = conn.cursor()
 curr.execute("CREATE TABLE IF NOT EXISTS user (username TEXT NOT NULL, password TEXT NOT NULL, role TEXT NOT NULL);")
 # Designing window for registration
- 
+
+root = customtkinter.CTk()
+
+# Enables Dark Mode
+customtkinter.set_appearance_mode("dark")
+
 def register():
     global register_screen
     register_screen = Toplevel(main_screen)
@@ -162,21 +167,25 @@ def loggedin(user):
     loggedin_screen.title(f"Hello, {user[0][0]}")
     loggedin_screen.geometry("300x250")
     Label(loggedin_screen, text=f"Hello, {user[0][0]}").pack()
-    Button(loggedin_screen, text="OK", command=delete_login_success).pack()
+    Button(loggedin_screen, text="OK", command=end_screens).pack()
     if user[0][2] == "admin":
         Label(loggedin_screen, text="You are an admin!").pack()
-        Button(loggedin_screen, text="OK", command=adminscreen).pack()
+        Button(loggedin_screen, text="OK", command=adminscreen(user)).pack()
 
 
 def adminscreen(user):
     if user[0][2] == "admin":
-        global loggedin_screen
-        loggedin_screen = Toplevel(main_screen)
-        loggedin_screen.title(f"Hello, {user[0][0]}")
-        loggedin_screen.geometry("300x250")
-        Label(loggedin_screen, text=f"Hello, {user[0][0]}").pack()
-        Button(loggedin_screen, text="OK", command=delete_login_success).pack()
+        global aloggedin_screen
+        aloggedin_screen = Toplevel(main_screen)
+        aloggedin_screen.title(f"Hello, {user[0][0]}")
+        aloggedin_screen.geometry("300x250")
+        Label(aloggedin_screen, text=f"Hello, {user[0][0]}").pack()
+        Button(aloggedin_screen, text="OK", command=end_screens).pack()
 
+
+
+def end_screens():
+    exit()
 
 
 main_account_screen()
