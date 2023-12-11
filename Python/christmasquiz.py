@@ -230,5 +230,6 @@ def quiz(number):
         start()
     else:
         print("Thank you for playing!")
+        exit()
 
 start()
