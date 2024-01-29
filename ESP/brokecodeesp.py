@@ -43,8 +43,8 @@ def show_sales():
 
 def house_sale():
     sale = []
-    customer_forename = input('Please enter customer forename:')
-    customer_surname = input('Please enter customer surname:')
+    customer_forename = input('Please enter customer forename: ')
+    customer_surname = input('Please enter customer surname: ')
     for i, item in enumerate(houses, 1):
         print(i, item)
 

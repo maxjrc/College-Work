@@ -6,5 +6,5 @@ while True:
     digit = random.randint(0, 9)
     attempt += str(digit)
   if attempt == correct_pin:
+    print(f"PIN code cracked! The code is: {attempt}")
     break
-print(f"PIN code cracked! The code is: {attempt}")
